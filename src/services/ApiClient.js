@@ -5,7 +5,7 @@ import axios from 'axios';
 export const fetchDataFromAPI = async (endpoint) => {
     try {
         // Make a GET request to the provided endpoint
-        const response = await axios.get(endpoint);
+        const response = await axios.get('http://localhost:8080' + endpoint);
 
         // Assuming the response data contains the data you need
         return response.data;
