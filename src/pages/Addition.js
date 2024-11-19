@@ -73,13 +73,13 @@ export default function Addition() {
             additionalMessage = <div className="flex flex-col justify-center items-center">
                 <p className="text-4xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent">Great
                     job! You scored perfect score!</p>
-                <Lottie className="w-9/12" animationData={amazing} loop={true}/>
+                <Lottie className="w-8/12" animationData={amazing} loop={true}/>
             </div>;
         } else if ((score / questions.length) >= 0.6 && score !== questions.length) {
             additionalMessage = <div className="flex flex-col justify-center items-center">
                 <p className="text-4xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent">Not
                     bad! Congratulations!</p>
-                <Lottie className="w-7/12" animationData={good} loop={true}/>
+                <Lottie className="w-6/12" animationData={good} loop={true}/>
             </div>;
         } else {
             additionalMessage = <div className="flex flex-col justify-center items-center">
@@ -96,8 +96,8 @@ export default function Addition() {
         <div
             className="flex-1 flex flex-col overflow-auto items-center bg-gradient-to-br from-indigo-200 to-indigo-600">
             {isGameComplete ? (
-                    <div className="mt-40 flex flex-col justify-center items-center">
-                        <p className="text-7xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent mb-16">Your
+                    <div className="mt-32 flex flex-col justify-center items-center">
+                        <p className="text-6xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent mb-9">Your
                             score is {score} out of {questions.length}</p>
                         {additionalMessage}
                     </div>)

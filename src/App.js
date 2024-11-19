@@ -7,6 +7,7 @@ import Subjects from "./pages/Subjects";
 import SelectGame from "./pages/SelectGame";
 import Addition from "./pages/Addition";
 import GamePage from "./pages/GamePage";
+import Profile from "./pages/Profile";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/subject" element={<Subjects/>}/>
                     <Route path="/subject/:id/games" element={<SelectGame/>}/>
                     <Route path="/subject/:subjectId/games/:gameId" element={<GamePage/>}/>
+                    <Route path="/profile/:userId" element={<Profile/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
