@@ -38,12 +38,18 @@ export default function Profile() {
                                         at {new Date(progress.lastPlayed).toLocaleTimeString()}</p>
                                 </div>
                             </div>
-                            <div className="relative w-full">
-                                <progress
-                                    value={progress.totalPoints / (basePoints * (growthFactor ** (progress.progressLevel - 1)))}/>
-                                <div className="absolute inset-0 h-6 w-2/3 flex justify-center items-center">
-                                    <p className="text-xl text-red-400">
-                                        {progress.totalPoints + "/" + basePoints * (growthFactor ** (progress.progressLevel - 1)) + " Level " + progress.progressLevel}</p>
+                            <div className="flex justify-between">
+                                <div className="relative w-2/3">
+                                    <progress
+                                        value={progress.totalPoints / (basePoints * (growthFactor ** (progress.progressLevel - 1)))}/>
+                                    <div className="absolute inset-0 h-6 w-full flex justify-center items-center">
+                                        <p className="text-xl text-red-400">
+                                            {progress.totalPoints + "/" + basePoints * (growthFactor ** (progress.progressLevel - 1)) + " Level " + progress.progressLevel}</p>
+                                    </div>
+                                </div>
+                                <div
+                                    className="accuracy flex justify-center items-center">
+                                    <p className="text-xl text-red-400">Accuracy {100 * progress.accuracy.toFixed(4)}%</p>
                                 </div>
                             </div>
                             {progress.gameinstanceList.map((game, index) =>

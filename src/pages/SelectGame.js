@@ -14,12 +14,23 @@ export default function SelectGame() {
     if (loading) return <LoadingPage/>
     if (error) return <div>Error: {error.message}</div>;
 
-    const array = [
-        {...data[0]},  // Copy of the first object in the data array
-        {...data[0]},  // Copy of the first object in the data array
-        {...data[0]},
-        {...data[0]}// Copy of the first object in the data array
-    ];
+    let array = [];
+
+    if (data.length === 1) {
+        array = [
+            {...data[0]},  // Copy of the first object in the data array
+            {...data[0]},  // Copy of the first object in the data array
+            {...data[0]},
+            {...data[0]}// Copy of the first object in the data array
+        ];
+    } else {
+        array = [
+            {...data[0]},  // Copy of the first object in the data array
+            {...data[1]},  // Copy of the first object in the data array
+            {...data[0]},
+            {...data[1]}// Copy of the first object in the data array
+        ];
+    }
 
     return (
         <div
