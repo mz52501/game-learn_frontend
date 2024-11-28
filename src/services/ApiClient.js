@@ -15,3 +15,15 @@ export const fetchDataFromAPI = async (endpoint) => {
         throw error; // Rethrow the error so it can be handled elsewhere
     }
 };
+
+// General function to send a POST request with data to the API
+export const postDataToAPI = async (endpoint, data) => {
+    try {
+        // Make a POST request to the provided endpoint with the given data
+        const response = await axios.post('http://localhost:8080' + endpoint, data);
+        return response.data; // Return the data from the response (assuming successful response)
+    } catch (error) {
+        console.error('Error posting data:', error);
+        throw error; // Rethrow the error for handling in other parts of the application
+    }
+};
