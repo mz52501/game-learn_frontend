@@ -35,8 +35,9 @@ export default function SelectGame() {
     return (
         <div
             className="flex-1 flex flex-col overflow-auto items-center justify-evenly bg-gradient-to-br from-indigo-200 to-indigo-600">
-            <div className="bg-lime-300 rounded-lg py-6 w-1/3 flex justify-center items-center shadow-md">
-                <p className="text-5xl bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">Select
+            <div
+                className="bg-white rounded-lg border-4 border-lime-400 py-6 w-1/3 flex justify-center items-center shadow-md">
+                <p className="text-6xl bg-gradient-to-br from-lime-400 to-lime-600 bg-clip-text text-transparent">Select
                     game!</p>
             </div>
             <div className="flex justify-center items-center w-full flex-wrap">

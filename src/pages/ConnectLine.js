@@ -6,19 +6,48 @@ import Lottie from "lottie-react";
 import amazing from "../animations/amazing2.json";
 import good from "../animations/good.json";
 import fail from "../animations/fail.json";
+import Results from "./Results";
+import {usePostData} from "../hooks/UsePostData";
+import {useUser} from "./UserProvider";
 
 export default function ConnectLine() {
 
     const {subjectId, gameId} = useParams();
+    const {user} = useUser();
 
     const {data, loading, error} = useFetchData(`/subject/${subjectId}/games/${gameId}`)
 
     const [images, setImages] = useState([]);  // Store generated questions
     const [score, setScore] = useState(0);
+    const [maxScore, setMaxScore] = useState(5);
+    const [startTime, setStartTime] = useState(null); // Store game start time
+    const [endTime, setEndTime] = useState(null);
     const [isGameComplete, setIsGameComplete] = useState(false);
     const [connections, setConnections] = useState([]); // Store user connections
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedName, setSelectedName] = useState(null);
+
+    const {responseData, error: postError, loading: postLoading, postData} = usePostData("/gameComplete", {
+        userId: user.userId,
+        subjectId,
+        gameId,
+        startTime,
+        endTime,
+        score,
+        maxScore
+    })
+
+    useEffect(() => {
+        if (endTime) {
+            // Send the data only when endTime has been set (i.e., game is complete)
+            postData();
+        }
+    }, [endTime]);
+
+    useEffect(() => {
+        // Record the game start time when the component mounts
+        setStartTime(new Date().toISOString());
+    }, []);
 
 
     useEffect(() => {
@@ -76,6 +105,7 @@ export default function ConnectLine() {
         const correctConnections = connections.filter((connection) => connection.imageId === connection.nameId);
         setScore(correctConnections.length);
         setIsGameComplete(true);  // Mark the game as complete
+        setEndTime(new Date().toISOString());
     }
 
     // Show loading while numbers are being fetched or questions are being generated
@@ -83,38 +113,10 @@ export default function ConnectLine() {
         return <LoadingPage/>
     }
 
-    let additionalMessage = null;
-
-    if (isGameComplete) {
-        if (score === images.length) {
-            additionalMessage = <div className="flex flex-col justify-center items-center">
-                <p className="text-4xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent">Great
-                    job! You scored perfect score!</p>
-                <Lottie className="w-8/12" animationData={amazing} loop={true}/>
-            </div>;
-        } else if ((score / images.length) >= 0.6 && score !== images.length) {
-            additionalMessage = <div className="flex flex-col justify-center items-center">
-                <p className="text-4xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent">Not
-                    bad! Congratulations!</p>
-                <Lottie className="w-6/12" animationData={good} loop={true}/>
-            </div>;
-        } else {
-            additionalMessage = <div className="flex flex-col justify-center items-center">
-                <p className="text-4xl text-red-600 mb-10">You didn't do so well! You should do this again!</p>
-                <Lottie className="w-6/12" animationData={fail} loop={true}/>
-            </div>;
-        }
-    }
-
     return (
         <div
             className="flex-1 flex flex-col overflow-auto items-center bg-gradient-to-br from-indigo-200 to-indigo-600">
-            {isGameComplete ? (
-                <div className="mt-32 flex flex-col justify-center items-center">
-                    <p className="text-6xl bg-gradient-to-br from-lime-200 to-lime-400 bg-clip-text text-transparent mb-9">Your
-                        score is {score} out of {images.length}</p>
-                    {additionalMessage}
-                </div>) : (
+            {isGameComplete ? (<Results score={score} max={images.length}/>) : (
                 <>
                     <div className="bg-lime-300 rounded-lg py-3 w-1/4 flex justify-center items-center shadow-md mt-5">
                         <p className="text-4xl bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">
