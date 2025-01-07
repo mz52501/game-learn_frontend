@@ -1,17 +1,15 @@
-import {useFetchData} from "../hooks/UseFetchData";
 import {useParams} from "react-router-dom";
+import {useUser} from "./UserProvider";
+import {useFetchData} from "../hooks/UseFetchData";
 import React, {useEffect, useState} from "react";
+import {usePostData} from "../hooks/UsePostData";
 import LoadingPage from "./LoadingPage";
 import Results from "./Results";
-import {usePostData} from "../hooks/UsePostData";
-import {useUser} from "./UserProvider";
 
-export default function Addition() {
-
+export default function Subtraction() {
     const {subjectId, gameId} = useParams();
     const {user} = useUser();
 
-    const {data, loading, error} = useFetchData(`/subject/${subjectId}/games/${gameId}`)
     const [questions, setQuestions] = useState([]);  // Store generated questions
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState('');
@@ -44,21 +42,23 @@ export default function Addition() {
     }, []);
 
     useEffect(() => {
-        if (data != null) {
-            const generatedQuestions = [];
-            for (let i = 0; i < 5; i++) {  // Generate 5 questions, adjust as needed
-                const num1 = getRandomNumber(data);
-                const num2 = getRandomNumber(data);
-                generatedQuestions.push({num1, num2, answer: num1 + num2});
-            }
-            setQuestions(generatedQuestions);
+        const generatedQuestions = [];
+        for (let i = 0; i < 5; i++) {  // Generate 5 questions, adjust as needed
+            const numbers = getRandomNumbers(20);
+            generatedQuestions.push({num1: numbers[0], num2: numbers[1], answer: numbers[0] - numbers[1]});
         }
-    }, [data]);
+        setQuestions(generatedQuestions);
+    }, []);
 
     // Helper function to get a random number from the array
-    const getRandomNumber = (numArray) => {
-        const randomIndex = Math.floor(Math.random() * numArray.length);
-        return numArray[randomIndex].value;
+    const getRandomNumbers = (max) => {
+        let first, second;
+        do {
+            first = Math.floor(Math.random() * (max + 1));
+            second = Math.floor(Math.random() * (max + 1));
+        } while (first <= second);
+
+        return [first, second]
     };
 
     // Handle user input change
@@ -89,7 +89,7 @@ export default function Addition() {
     };
 
     // Show loading while numbers are being fetched or questions are being generated
-    if (data === null || questions.length === 0) {
+    if (questions.length === 0) {
         return <LoadingPage/>
     }
 
@@ -104,7 +104,7 @@ export default function Addition() {
                         <div className="flex flex-col justify-center items-center w-full mt-20">
                             <div
                                 className="bg-lime-300 rounded-lg py-4 w-1/4 flex justify-center items-center shadow-md">
-                                <p className="text-5xl bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">Addition
+                                <p className="text-5xl bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">Subtraction
                                     game</p>
                             </div>
                             <div className="mt-10">
@@ -114,7 +114,7 @@ export default function Addition() {
                         <div className="flex flex-col justify-center items-center w-full mt-20">
                             <div className="mb-5">
                                 <p className="text-6xl bg-gradient-to-br from-lime-200 to-lime-500 bg-clip-text text-transparent">What
-                                    is {currentQuestion.num1} + {currentQuestion.num2}?</p>
+                                    is {currentQuestion.num1} - {currentQuestion.num2}?</p>
                             </div>
                             <form className="flex flex-col items-center space-y-4 p-6"
                                   onSubmit={handleSubmit}>

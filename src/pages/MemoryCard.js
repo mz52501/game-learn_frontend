@@ -137,8 +137,8 @@ const MemoryCard = () => {
                 : (
                     <>
                         <div
-                            className="bg-lime-300 rounded-lg py-2 mt-4 w-1/4 flex justify-center items-center shadow-md">
-                            <p className="text-5xl bg-gradient-to-br from-indigo-300 to-indigo-600 bg-clip-text text-transparent">Memory
+                            className="bg-white rounded-lg border-4 border-lime-400 rounded-lg py-2 mt-4 w-1/4 flex justify-center items-center shadow-md">
+                            <p className="text-5xl bg-gradient-to-br from-indigo-400 to-indigo-600 bg-clip-text text-transparent">Memory
                                 cards</p>
                         </div>
                         <div

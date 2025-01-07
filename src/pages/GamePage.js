@@ -5,7 +5,8 @@ import Addition from "./Addition";
 import LoadingPage from "./LoadingPage";
 import ImageWord from "./ImageWord";
 import ConnectLine from "./ConnectLine";
-import MemoryCard from "./MemoryCard";  // Adjust the import based on your folder structure
+import MemoryCard from "./MemoryCard";
+import Subtraction from "./Subtraction";  // Adjust the import based on your folder structure
 
 const GamePage = () => {
     const {subjectId, gameId} = useParams();  // Accessing the gameId from the URL
@@ -23,7 +24,9 @@ const GamePage = () => {
         case 'Memory cards':
             return <MemoryCard/>;
         case 'Connect terms':
-            return <ConnectLine/>
+            return <ConnectLine/>;
+        case 'Subtraction':
+            return <Subtraction/>
         default:
             return <p>Game not found</p>;
     }

@@ -40,7 +40,7 @@ const Card = ({content, isFlipped, onClick}) => {
 
                 {/* Back Side */}
                 <div
-                    className="absolute w-full h-full bg-lime-400 rounded-lg flex items-center justify-center text-white text-2xl font-bold"
+                    className="absolute w-full h-full bg-lime-300 rounded-lg flex items-center justify-center text-white text-2xl font-bold"
                     style={{
                         backfaceVisibility: "hidden",
                         transform: "rotateY(180deg)",

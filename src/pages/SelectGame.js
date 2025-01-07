@@ -16,22 +16,6 @@ export default function SelectGame() {
 
     let array = [];
 
-    if (data.length === 1) {
-        array = [
-            {...data[0]},  // Copy of the first object in the data array
-            {...data[0]},  // Copy of the first object in the data array
-            {...data[0]},
-            {...data[0]}// Copy of the first object in the data array
-        ];
-    } else {
-        array = [
-            {...data[0]},  // Copy of the first object in the data array
-            {...data[1]},  // Copy of the first object in the data array
-            {...data[0]},
-            {...data[1]}// Copy of the first object in the data array
-        ];
-    }
-
     return (
         <div
             className="flex-1 flex flex-col overflow-auto items-center justify-evenly bg-gradient-to-br from-indigo-200 to-indigo-600">
@@ -41,7 +25,7 @@ export default function SelectGame() {
                     game!</p>
             </div>
             <div className="flex justify-center items-center w-full flex-wrap">
-                {array.map((game, index) => {
+                {data.map((game, index) => {
                     return (
                         <Link
                             className="group bg-lime-300 hover:bg-lime-100 rounded-lg py-12 mx-16 w-1/3 mb-16 flex justify-center items-center shadow-md"
